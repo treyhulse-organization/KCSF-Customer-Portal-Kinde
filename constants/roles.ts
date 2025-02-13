@@ -1,11 +1,11 @@
 export const ROLES = {
   ADMIN: {
-    id: '0194dd3a-494d-156b-df25-a5ad85a92cd5',
+    id: '019500fb-45f0-a7cb-b4fe-1e481005bc47',
     key: 'admin',
     name: 'Administrator'
   },
   MEMBER: {
-    id: '0194dd3a-e3d3-85b7-752a-f8778531e1bc',
+    id: '019500fb-87b4-e9d4-1c41-f889355d26c0',
     key: 'member',
     name: 'Member'
   }

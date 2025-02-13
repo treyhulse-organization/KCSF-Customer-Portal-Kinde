@@ -4,7 +4,7 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
-// Command to run: npx prisma migrate dev --name add_address_transactions
+// Command to run: npx prisma migrate dev --name add_name
 
 
 
@@ -43,6 +43,29 @@ model Subscription {
 
   User   User?   @relation(fields: [userId], references: [id])
   userId String? @unique
+}
+
+model Transaction {
+  id                    String    @id @default(cuid())
+  internalId            String    // This will be your CSV's id field
+  type                  String
+  date                  DateTime?
+  documentNumber        String
+  name                  String
+  item                  String
+  status               String
+  memo                  String?
+  amount               Decimal
+  kindeOrgId           String
+  shipDate             DateTime?
+  quantity             Int
+  quantityCommitted    Int?
+  quantityFulfilled    Int?
+  
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+
+  @@unique([internalId, item])
 }
 
 

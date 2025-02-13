@@ -6,7 +6,6 @@ import {
   getOrganizationUsers,
   getOrganizationProperties 
 } from "@/lib/kinde/actions/organization";
-import { OrganizationLogo } from "@/components/OrganizationLogo";
 import { CopyButton } from "@/components/CopyButton";
 import OrganizationManagement from "@/components/dashboard/OrganizationManagement";
 import { DeleteOrganizationSection } from "@/components/dashboard/DeleteOrganizationSection";
@@ -39,7 +38,6 @@ export default async function OrganizationPage() {
     return (
       <div className="container mx-auto py-8 max-w-7xl">
         <div className="flex items-center gap-4 mb-8">
-          <OrganizationLogo orgCode={org.orgCode} className="h-12 w-auto" />
           <div className="flex-1">
             <h1 className="text-3xl font-bold">{org.orgName}</h1>
             <div className="flex items-center gap-2 mt-1">
