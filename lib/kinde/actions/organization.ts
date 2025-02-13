@@ -5,8 +5,7 @@
 // It leverages the kindeApiFetch() function from kindeApiClient.ts.
 
 import { kindeApiFetch } from "@/lib/kinde/kindeApiClient";
-import { createInitialStore } from "@/lib/supabase/stores"
-import { createInitialItem } from "@/lib/supabase/items"
+
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server"
 import prisma from "@/utils/db"
 
@@ -63,21 +62,6 @@ export async function createOrganization(orgName: string, properties?: Record<st
 
     console.log("Add user to organization result:", addUserResult);
 
-    // Create initial store and item
-    const { data: store, error: storeError } = await createInitialStore(orgCode, orgName);
-    if (storeError) {
-      console.error('Store creation error:', storeError);
-      throw new Error(storeError);
-    }
-
-    if (store) {
-      const { error: itemError } = await createInitialItem(orgCode, orgName);
-      if (itemError) {
-        console.error('Item creation error:', itemError);
-        throw new Error(itemError);
-      }
-    }
-
     return {
       org_code: orgCode,
       ...orgResult,
@@ -104,29 +88,7 @@ export async function deleteOrganization(orgCode: string) {
     // to respect foreign key constraints
     await prisma.$transaction([
       // Delete transaction items first (child records)
-      prisma.transactionItems.deleteMany({
-        where: { transaction: { org_id: orgCode } }
-      }),
-      // Delete transactions
-      prisma.transactions.deleteMany({
-        where: { org_id: orgCode }
-      }),
-      // Delete pages
-      prisma.page.deleteMany({
-        where: { org_id: orgCode }
-      }),
-      // Delete items
-      prisma.items.deleteMany({
-        where: { org_id: orgCode }
-      }),
-      // Delete stores
-      prisma.store.deleteMany({
-        where: { org_id: orgCode }
-      }),
-      // Delete customers
-      prisma.customers.deleteMany({
-        where: { org_id: orgCode }
-      })
+
     ]);
 
     return { 

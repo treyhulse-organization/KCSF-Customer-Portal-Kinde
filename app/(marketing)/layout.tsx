@@ -8,7 +8,7 @@ export default function MarketingLayout({
 }) {
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="flex h-16 items-center px-4 lg:px-8 bg-blue-950">
+      <header className="flex h-16 items-center px-4 lg:px-8 bg-primary">
         <Navigation />
       </header>
       <main className="flex-1">

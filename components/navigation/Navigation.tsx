@@ -21,10 +21,10 @@ import {CreateOrgLink} from "@kinde-oss/kinde-auth-nextjs/components";
 
 export default function Navigation() {
   return (
-    <div className="flex h-16 w-full items-center justify-between bg-blue-950 px-6">
+    <div className="flex h-16 w-full items-center justify-between bg-primary px-6">
       <Link href="/" className="flex items-center gap-2">
         <Image
-          src="/logos/WhiteLogo-Text.png"
+          src="/logos/WhiteLogo.png"
           alt="Ramp Logo"
           width={140}
           height={140}
@@ -34,7 +34,7 @@ export default function Navigation() {
       <NavigationMenu className="hidden lg:flex">
         <NavigationMenuList className="gap-2">
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-transparent text-white hover:bg-blue-950 hover:text-white data-[state=open]:bg-blue-950">
+            <NavigationMenuTrigger className="bg-transparent text-white hover:bg-primary hover:text-white data-[state=open]:bg-primary">
               Products
             </NavigationMenuTrigger>
             <NavigationMenuContent>
@@ -48,7 +48,7 @@ export default function Navigation() {
             </NavigationMenuContent>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-transparent text-white hover:bg-blue-950 hover:text-white data-[state=open]:bg-blue-950">
+            <NavigationMenuTrigger className="bg-transparent text-white hover:bg-primary hover:text-white data-[state=open]:bg-primary">
               Solutions
             </NavigationMenuTrigger>
             <NavigationMenuContent>
@@ -64,13 +64,13 @@ export default function Navigation() {
           <NavigationMenuItem>
             <Link
               href="/customers"
-              className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-950 hover:text-white focus:bg-blue-950 focus:text-white focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-blue-950 data-[state=open]:bg-blue-950"
+              className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-primary hover:text-white focus:bg-primary focus:text-white focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-primary data-[state=open]:bg-primary"
             >
               Customers
             </Link>
           </NavigationMenuItem>
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="bg-transparent text-white hover:bg-blue-950 hover:text-white data-[state=open]:bg-blue-950">
+            <NavigationMenuTrigger className="bg-transparent text-white hover:bg-primary hover:text-white data-[state=open]:bg-primary">
               Resources
             </NavigationMenuTrigger>
             <NavigationMenuContent>
@@ -86,7 +86,7 @@ export default function Navigation() {
           <NavigationMenuItem>
             <Link
               href="/pricing"
-              className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-950 hover:text-white focus:bg-blue-950 focus:text-white focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-blue-950 data-[state=open]:bg-blue-950"
+              className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-primary hover:text-white focus:bg-primary focus:text-white focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-primary data-[state=open]:bg-primary"
             >
               Pricing
             </Link>
@@ -94,7 +94,7 @@ export default function Navigation() {
           <NavigationMenuItem>
             <Link
               href="/dashboard"
-              className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-950 hover:text-white focus:bg-blue-950 focus:text-white focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-blue-950 data-[state=open]:bg-blue-950"
+              className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-transparent px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-primary hover:text-white focus:bg-primary focus:text-white focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-primary data-[state=open]:bg-primary"
             >
               Dashboard
             </Link>

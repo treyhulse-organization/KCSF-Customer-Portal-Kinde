@@ -10,14 +10,12 @@ import {
 import { Button } from "@/components/ui/button";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import OrganizationSwitcher from "@/components/dashboard/OrganizationSwitcher";
-import { OrganizationProvider } from "@/components/dashboard/OrganizationProvider";
 import { Searchbar } from "@/components/dashboard/Searchbar";
 import { Notifications } from "@/components/dashboard/Notifications";
 
 export function DashboardHeader() {
   return (
     <header className="flex h-14 items-center gap-4 border-b bg-muted/40 px-4 lg:h-[60px] lg:px-6">
-      <OrganizationProvider />
       
       <div className="flex-1 ml-4">
         <Searchbar />
@@ -32,14 +30,6 @@ export function DashboardHeader() {
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuItem asChild>
-              <Link
-                href="https://billing.stripe.com/p/login/7sIbKj5DHb1P2sw8ww"
-                target="_blank"
-              >
-                Manage Subscription
-              </Link>
-            </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <LogoutLink>Log out</LogoutLink>
             </DropdownMenuItem>

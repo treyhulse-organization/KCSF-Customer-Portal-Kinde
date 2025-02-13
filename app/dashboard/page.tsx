@@ -1,7 +1,6 @@
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { ViewWebsiteCard } from "@/components/dashboard/ViewWebsiteCard";
 import { SetupDashboard } from "@/components/dashboard/SetupDashboard";
-import { getStores } from "@/lib/supabase/stores";
 
 export default async function DashboardPage() {
   const { getOrganization } = getKindeServerSession();
@@ -11,8 +10,6 @@ export default async function DashboardPage() {
     return null;
   }
 
-  const { data: stores } = await getStores();
-  const primaryStore = stores?.[0];
 
   return (
     <div className="flex flex-col gap-8 p-8">
@@ -22,18 +19,7 @@ export default async function DashboardPage() {
         <p className="text-muted-foreground">
           Manage your store, products, and more from your dashboard.
         </p>
-      </div>
-
-      {/* View Website Card */}
-      {primaryStore && (
-        <ViewWebsiteCard 
-          storeName={primaryStore.name}
-          subdomain={primaryStore.subdomain}
-          storeId={primaryStore.id}
-          logoUrl={primaryStore.store_logo_url}
-        />
-      )}
-      
+      </div>      
       <SetupDashboard />
     </div>
   );

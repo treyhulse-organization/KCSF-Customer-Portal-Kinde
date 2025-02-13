@@ -1,34 +1,19 @@
-import { Button } from "@/components/ui/button";
-import {
-  RegisterLink,
-  LoginLink,
-  LogoutLink,
-} from "@kinde-oss/kinde-auth-nextjs/components";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { Hero } from "@/components/frontend/Hero";
-import { Logos } from "@/components/frontend/Logos";
-import { Features } from "@/components/frontend/Features";
-import PricingTable from "@/components/PricingTable";
-import { redirect } from "next/navigation";
-import { SocialProof } from "@/components/frontend/SocialProof";
+import { Hero } from "@/components/home/hero"
+import { Features } from "@/components/home/features"
+import { Benefits } from "@/components/home/benefits"
+import { DistributorProgram } from "@/components/home/DistributorProgram"
+import { MarqueeDemo } from "@/components/home/marquee-example"
 
-
-export default async function Home() {
-  const { getUser } = getKindeServerSession();
-  const session = await getUser();
-
-
-  if (session?.id) {
-    return redirect("/dashboard");
-  }
-
+export default function HomePage() {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-24">
-      <Hero />
-      <Logos />
-      <Features />
-      <PricingTable />
-      <SocialProof />
+    <div className="flex min-h-screen flex-col">
+      <main className="flex-1">
+        <Hero />
+        <MarqueeDemo />
+        <Benefits />
+        <Features />
+        <DistributorProgram />
+      </main>
     </div>
-  );
+  )
 }

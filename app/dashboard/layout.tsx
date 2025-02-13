@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ReactNode } from "react";
-import LightLogo from "@/public/logos/BlackLogo-Text.png";
-import DarkLogo from "@/public/logos/WhiteLogo-Text.png";
+import LightLogo from "@/public/logos/RedLogo.png";
+import DarkLogo from "@/public/logos/WhiteLogo.png";
 import Image from "next/image";
 import { DashboardItems } from "@/components/dashboard/DashboardItems";
 import { Calendar, ChartNoAxesCombined, CreditCard, File, Globe, ImageIcon, LayoutDashboard, MessageCircle, Shirt, Truck, Unplug, Users } from "lucide-react";
@@ -15,16 +15,6 @@ export const navLinks = [
     icon: LayoutDashboard,
   },
   {
-    name: "Calendar",
-    href: "/dashboard/calendar",
-    icon: Calendar,
-  },
-  {
-    name: "Items",
-    href: "/dashboard/items",
-    icon: Shirt,
-  },
-  {
     name: "Transactions",
     href: "/dashboard/transactions",
     icon: File,
@@ -33,11 +23,6 @@ export const navLinks = [
     name: "Customers",
     href: "/dashboard/customers",
     icon: Users,
-  },
-  {
-    name: "Store",
-    href: "/dashboard/stores",
-    icon: Globe,
   },
   {
     name: "Media",
@@ -66,7 +51,7 @@ export const navLinks = [
     icon: Unplug,
   },
   {
-    name: "Billing & Payments",
+    name: "Billing",
     href: "/dashboard/billing",
     icon: CreditCard,
   },
@@ -86,14 +71,14 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
             <Link href="/dashboard" className="flex items-center gap-2 font-semibold">
               <Image 
                 src={LightLogo} 
-                alt="Takeout Threads" 
+                alt="KC Store Fixtures" 
                 width={100}
                 height={100}
                 className="block dark:hidden"
               />
               <Image 
                 src={DarkLogo} 
-                alt="Takeout Threads" 
+                alt="KC Store Fixtures" 
                 width={100}
                 height={100}
                 className="hidden dark:block"

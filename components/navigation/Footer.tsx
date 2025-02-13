@@ -4,14 +4,14 @@ import { ThemeToggle } from "../dashboard/ThemeToggle"
 
 export function Footer() {
   return (
-    <footer className="border-t bg-white">
+    <footer className="border-t bg-background">
       <div className="max-w-7xl mx-auto px-4 lg:px-8 py-12">
         <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5">
           <div className="space-y-4">
           <div className="flex-shrink-0">
               <Link href="/" className="flex items-center">
                 <Image 
-                    src="/logos/BlackLogo-Text.png" 
+                    src="/logos/RedLogo.png" 
                     alt="Takeout Threads" 
                     width={150} 
                     height={150}
@@ -22,7 +22,7 @@ export function Footer() {
             <ThemeToggle />
           </div>
           <div className="space-y-4">
-            <h4 className="font-semibold text-blue-950">Product</h4>
+            <h4 className="font-semibold text-primary">Product</h4>
             <ul className="space-y-2 text-sm text-gray-500">
               <li>
                 <Link href="/features">Features</Link>
@@ -39,7 +39,7 @@ export function Footer() {
             </ul>
           </div>
           <div className="space-y-4">
-            <h4 className="font-semibold text-blue-950">Company</h4>
+            <h4 className="font-semibold text-primary">Company</h4>
             <ul className="space-y-2 text-sm text-gray-500">
               <li>
                 <Link href="/about">About</Link>
@@ -56,7 +56,7 @@ export function Footer() {
             </ul>
           </div>
           <div className="space-y-4">
-            <h4 className="font-semibold text-blue-950">Resources</h4>
+            <h4 className="font-semibold text-primary">Resources</h4>
             <ul className="space-y-2 text-sm text-gray-500">
               <li>
                 <Link href="/blog">Blog</Link>
@@ -73,7 +73,7 @@ export function Footer() {
             </ul>
           </div>
           <div className="space-y-4">
-            <h4 className="font-semibold text-blue-950">Legal</h4>
+            <h4 className="font-semibold text-primary">Legal</h4>
             <ul className="space-y-2 text-sm text-gray-500">
               <li>
                 <Link href="/privacy">Privacy</Link>

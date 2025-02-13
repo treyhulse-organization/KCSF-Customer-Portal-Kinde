@@ -13,8 +13,8 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "Takeout Threads",
-  description: "Takeout Threads - apparel customization platform",
+  title: "KC Store Fixtures",
+  description: "KC Store Fixtures Customer Portal",
 };
 
 
