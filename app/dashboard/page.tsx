@@ -1,5 +1,4 @@
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { ViewWebsiteCard } from "@/components/dashboard/ViewWebsiteCard";
 import { SetupDashboard } from "@/components/dashboard/SetupDashboard";
 
 export default async function DashboardPage() {
