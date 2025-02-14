@@ -47,7 +47,7 @@ model Subscription {
 
 model Transaction {
   id                    String    @id @default(cuid())
-  internalId            String    // This will be your CSV's id field
+  internalId            String    
   type                  String
   date                  DateTime?
   documentNumber        String
@@ -64,8 +64,6 @@ model Transaction {
   
   createdAt            DateTime @default(now())
   updatedAt            DateTime @updatedAt
-
-  @@unique([internalId, item])
 }
 
 
