@@ -2,6 +2,9 @@ import prisma from "@/utils/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { NextResponse } from "next/server";
 
+// Add dynamic config to prevent prerendering
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   const { getUser } = getKindeServerSession();
   const user = await getUser();
