@@ -13,10 +13,12 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+
 import { useToast } from "@/hooks/use-toast";
 import { createOrganization } from "@/lib/kinde/actions/organization";
 
-type LoadingStep = "org" | "website" | "complete";
+type OnboardingStep = "org" | "store" | "item";
+type LoadingStep = "org" | "website" | "item" | "customer" | "order" | "complete";
 
 export function OrganizationOnboarding({
   isOpen,
@@ -25,8 +27,21 @@ export function OrganizationOnboarding({
   isOpen: boolean;
   onClose: () => void;
 }) {
+  const [step, setStep] = useState<OnboardingStep>("org");
   const [loadingStep, setLoadingStep] = useState<LoadingStep | null>(null);
   const [orgName, setOrgName] = useState("");
+  const [storeData, setStoreData] = useState({
+    name: "",
+    subdomain: "",
+    slogan: "",
+  });
+  const [itemData, setItemData] = useState({
+    name: "",
+    sku: "",
+    type: "PHYSICAL",
+    unit_of_measure: "PIECE",
+    description: "",
+  });
   const [isLoading, setIsLoading] = useState(false);
 
   const { toast } = useToast();
@@ -34,8 +49,8 @@ export function OrganizationOnboarding({
   const { user } = useKindeAuth();
 
   const runLoadingSequence = async () => {
-    const steps: LoadingStep[] = ["org", "website", "complete"];
-    const delay = 1000;
+    const steps: LoadingStep[] = ["org", "website", "item", "customer", "order", "complete"];
+    const delay = 1000; // 1 second delay between each step
 
     for (const step of steps) {
       setLoadingStep(step);
@@ -47,6 +62,7 @@ export function OrganizationOnboarding({
     try {
       setIsLoading(true);
       
+      // Start the loading sequence
       runLoadingSequence();
       
       const result = await createOrganization(orgName, {
@@ -63,7 +79,8 @@ export function OrganizationOnboarding({
         return;
       }
 
-      await new Promise(resolve => setTimeout(resolve, 3000));
+      // Wait for the loading sequence to complete
+      await new Promise(resolve => setTimeout(resolve, 5000));
       
       router.push(`/api/auth/login?org_code=${result.org_code}&post_login_redirect_url=/dashboard`);
       onClose();
@@ -80,8 +97,29 @@ export function OrganizationOnboarding({
     }
   };
 
+
+
+
+
+  const handleNext = async () => {
+    if (step === "store") {
+      const success = await true;
+      if (success) setStep("item");
+    } else if (step === "item") {
+      const success = true;
+      if (success) {
+        toast({
+          title: "Success",
+          description: "Organization setup completed!",
+        });
+        router.push("/dashboard");
+        onClose();
+      }
+    }
+  };
+
   const LoadingState = () => {
-    const steps: LoadingStep[] = ["org", "website", "complete"];
+    const steps: LoadingStep[] = ["org", "website", "item", "customer", "order", "complete"];
     const currentStepIndex = steps.indexOf(loadingStep!);
 
     return (
@@ -91,13 +129,17 @@ export function OrganizationOnboarding({
             <div className="relative flex items-center justify-center">
               <div
                 className={`w-4 h-4 rounded-full ${
-                  index <= currentStepIndex ? "bg-green-500" : "bg-gray-200"
+                  index <= currentStepIndex
+                    ? "bg-green-500"
+                    : "bg-gray-200"
                 }`}
               />
               {index < steps.length - 1 && (
                 <div
                   className={`absolute top-4 left-1/2 w-0.5 h-6 -translate-x-1/2 ${
-                    index < currentStepIndex ? "bg-green-500" : "bg-gray-200"
+                    index < currentStepIndex
+                      ? "bg-green-500"
+                      : "bg-gray-200"
                   }`}
                 />
               )}
@@ -112,7 +154,10 @@ export function OrganizationOnboarding({
               }`}
             >
               {step === "org" && "Creating your organization"}
-              {step === "website" && "Setting up your workspace"}
+              {step === "website" && "Creating your website"}
+              {step === "item" && "Creating your first item"}
+              {step === "customer" && "Creating your first customer"}
+              {step === "order" && "Creating your first order"}
               {step === "complete" && "Almost there"}
             </span>
             {index <= currentStepIndex && index !== steps.length - 1 && (
@@ -129,10 +174,22 @@ export function OrganizationOnboarding({
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>
-            {loadingStep ? "Setting up your workspace" : "Create Organization"}
+            {loadingStep ? "Setting up your workspace" : (
+              step === "org"
+                ? "Create Organization"
+                : step === "store"
+                ? "Set Up Your Store"
+                : "Add Your First Item"
+            )}
           </DialogTitle>
           <DialogDescription>
-            {!loadingStep && "Start by naming your organization"}
+            {!loadingStep && (
+              step === "org"
+                ? "Start by naming your organization"
+                : step === "store"
+                ? "Configure your store details"
+                : "Add your first product or item"
+            )}
           </DialogDescription>
         </DialogHeader>
 
@@ -140,25 +197,103 @@ export function OrganizationOnboarding({
           {loadingStep ? (
             <LoadingState />
           ) : (
-            <div className="space-y-4">
-              <Input
-                placeholder="Organization Name"
-                value={orgName}
-                onChange={(e) => setOrgName(e.target.value)}
-                disabled={isLoading}
-              />
-              <div className="flex justify-end space-x-2">
-                <Button variant="outline" onClick={onClose} disabled={isLoading}>
-                  Cancel
-                </Button>
-                <Button
-                  onClick={handleOrgCreation}
-                  disabled={!orgName || orgName.trim() === "" || isLoading}
-                >
-                  {isLoading ? "Creating..." : "Create Organization"}
-                </Button>
-              </div>
-            </div>
+            <>
+              {step === "org" && (
+                <div className="space-y-4">
+                  <Input
+                    placeholder="Organization Name"
+                    value={orgName}
+                    onChange={(e) => setOrgName(e.target.value)}
+                    disabled={isLoading}
+                  />
+                  <div className="flex justify-end space-x-2">
+                    <Button variant="outline" onClick={onClose} disabled={isLoading}>
+                      Cancel
+                    </Button>
+                    <Button
+                      onClick={handleOrgCreation}
+                      disabled={!orgName || orgName.trim() === "" || isLoading}
+                    >
+                      {isLoading ? "Creating..." : "Create Organization"}
+                    </Button>
+                  </div>
+                </div>
+              )}
+
+              {step === "store" && (
+                <div className="space-y-4">
+                  <Input
+                    placeholder="Store Name"
+                    value={storeData.name}
+                    onChange={(e) =>
+                      setStoreData({ ...storeData, name: e.target.value })
+                    }
+                  />
+                  <Input
+                    placeholder="Subdomain"
+                    value={storeData.subdomain}
+                    onChange={(e) =>
+                      setStoreData({ ...storeData, subdomain: e.target.value })
+                    }
+                  />
+                  <Input
+                    placeholder="Slogan (optional)"
+                    value={storeData.slogan}
+                    onChange={(e) =>
+                      setStoreData({ ...storeData, slogan: e.target.value })
+                    }
+                  />
+                  <div className="flex justify-end space-x-2">
+                    <Button variant="outline" onClick={() => setStep("org")}>
+                      Back
+                    </Button>
+                    <Button
+                      onClick={handleNext}
+                      disabled={!storeData.name || !storeData.subdomain}
+                    >
+                      Next
+                    </Button>
+                  </div>
+                </div>
+              )}
+
+              {step === "item" && (
+                <div className="space-y-4">
+                  <Input
+                    placeholder="Item Name"
+                    value={itemData.name}
+                    onChange={(e) =>
+                      setItemData({ ...itemData, name: e.target.value })
+                    }
+                  />
+                  <Input
+                    placeholder="SKU"
+                    value={itemData.sku}
+                    onChange={(e) =>
+                      setItemData({ ...itemData, sku: e.target.value })
+                    }
+                  />
+                  <Textarea
+                    placeholder="Description"
+                    value={itemData.description}
+                    onChange={(e) =>
+                      setItemData({ ...itemData, description: e.target.value })
+                    }
+                  />
+                  <div className="flex justify-end space-x-2">
+                    <Button variant="outline" onClick={() => setStep("store")}>
+                      Back
+                    </Button>
+                    <Button
+                      onClick={handleNext}
+                      disabled={!itemData.name || !itemData.sku}
+                    >
+                      Complete Setup
+                    </Button>
+                  </div>
+                </div>
+              )}
+            </>
           )}
         </div>
       </DialogContent>
